@@ -11,3 +11,6 @@ tracing-subscriber = { version = "*", features = [] }
 rcgen = { version = "0.14.8", features = [] }
 time = { version = "*", features = [] }
 rustls = { version = "*", features = [] }
+uuid = { version = "*", features = ["v7"] }
+serde = { version = "*", features = ["derive"] }
+argon2 = { version = "*", features = [] }

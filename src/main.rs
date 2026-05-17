@@ -2,10 +2,13 @@ use salvo::conn::rustls::{Keycert, RustlsConfig};
 use salvo::prelude::*;
 mod config;
 mod handlers;
+mod models;
+mod service;
 #[tokio::main]
 async fn main() {
     // Initialize logging system
     tracing_subscriber::fmt().init();
+    
 
     // Load TLS certificate and private key from embedded PEM files
     let (cert, key) = config::provide_cert::gen_tls("localhost", "127.0.0.1").await;
