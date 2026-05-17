@@ -1,12 +1,7 @@
 use salvo::conn::rustls::{Keycert, RustlsConfig};
 use salvo::prelude::*;
 mod config;
-// Handler function responding with "Hello World" for HTTP/3 requests
-#[handler]
-async fn hello() -> &'static str {
-    "Hello World"
-}
-
+mod handlers;
 #[tokio::main]
 async fn main() {
     // Initialize logging system
@@ -16,16 +11,16 @@ async fn main() {
     let (cert, key) = config::provide_cert::gen_tls("localhost", "127.0.0.1").await;
 
     // Create router with single endpoint
-    let router = Router::new().get(hello);
+    let router = config::provide_router::build();
 
     // Configure TLS settings using Rustls
     let config = RustlsConfig::new(Keycert::new().cert(cert.as_slice()).key(key.as_slice()));
 
     // Create TCP listener with TLS encryption on port 8698
-    let listener = TcpListener::new(("0.0.0.0", 8698)).rustls(config.clone());
+    let listener = TcpListener::new(("0.0.0.0", 443)).rustls(config.clone());
 
     // Create QUIC listener and combine with TCP listener
-    let acceptor = QuinnListener::new(config.build_quinn_config().unwrap(), ("0.0.0.0", 8698))
+    let acceptor = QuinnListener::new(config.build_quinn_config().unwrap(), ("0.0.0.0", 443))
         .join(listener)
         .bind()
         .await;

@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-salvo = { version = "*", features = ["quinn"] }
+salvo = { version = "*", features = ["quinn","concurrency-limiter"] }
 tokio = { version = "*", features = ["macros"] }
 tracing = { version = "*", features = [] }
 tracing-subscriber = { version = "*", features = [] }
