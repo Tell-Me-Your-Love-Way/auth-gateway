@@ -1,0 +1,13 @@
+[package]
+name = "auth-gateway"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+salvo = { version = "*", features = ["quinn"] }
+tokio = { version = "*", features = ["macros"] }
+tracing = { version = "*", features = [] }
+tracing-subscriber = { version = "*", features = [] }
+rcgen = { version = "0.14.8", features = [] }
+time = { version = "*", features = [] }
+rustls = { version = "*", features = [] }
